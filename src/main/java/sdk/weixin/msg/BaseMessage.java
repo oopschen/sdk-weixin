@@ -11,7 +11,6 @@ import java.util.Date;
 public abstract class BaseMessage {
     protected String toUserName;
     protected String fromUserName;
-    protected String msgType;
     protected Date createTime;
 
     public String getToUserName() {
@@ -28,14 +27,6 @@ public abstract class BaseMessage {
 
     public void setFromUserName(String fromUserName) {
         this.fromUserName = fromUserName;
-    }
-
-    public String getMsgType() {
-        return msgType;
-    }
-
-    public void setMsgType(String msgType) {
-        this.msgType = msgType;
     }
 
     public Date getCreateTime() {
