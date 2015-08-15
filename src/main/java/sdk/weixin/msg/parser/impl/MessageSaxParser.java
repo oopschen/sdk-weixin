@@ -25,21 +25,21 @@ import java.util.*;
  * <p>sax 方式的消息解析器</p>
  *
  * @author ray
- * @date 2015-08-15
+ * @version %I%, %G%
  * @since 1.0
  */
 public class MessageSaxParser extends DefaultHandler implements MessageParser {
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageSaxParser.class);
     private static final List<String> CAPTURE_ELEMENT_NAMES_LOWER_CASE = Collections
-        .unmodifiableList(Arrays.asList(
-            new String[] {Constants.ELE_TO_USER_NAME, Constants.ELE_FROM_USER_NAME,
-                Constants.ELE_CREATE_DATE, Constants.ELE_MSG_ID, Constants.ELE_MSG_TYPE,
-                Constants.ELE_CONTENT, Constants.ELE_IMG_ID, Constants.ELE_IMG_URL,
-                Constants.ELE_VOICE_FORMAT, Constants.ELE_VIDEO_THUMB, Constants.ELE_LOC_LABEL,
-                Constants.ELE_LOC_LAT, Constants.ELE_LOC_LONG, Constants.ELE_LOC_SCALE,
-                Constants.ELE_LINK_DESC, Constants.ELE_LINK_TITLE, Constants.ELE_LINK_URL,
-                Constants.ELE_EVT, Constants.ELE_QR_KEY, Constants.ELE_QR_TICKET,
-                Constants.ELE_LOCU_LAT, Constants.ELE_LOCU_LONG, Constants.ELE_LOCU_PRECISION}));
+        .unmodifiableList(Arrays.asList(Constants.ELE_TO_USER_NAME, Constants.ELE_FROM_USER_NAME,
+            Constants.ELE_CREATE_DATE, Constants.ELE_MSG_ID, Constants.ELE_MSG_TYPE,
+            Constants.ELE_CONTENT, Constants.ELE_IMG_ID, Constants.ELE_IMG_URL,
+            Constants.ELE_VOICE_FORMAT, Constants.ELE_VOICE_RECOGNITION, Constants.ELE_VIDEO_THUMB,
+            Constants.ELE_LOC_LABEL, Constants.ELE_LOC_LAT, Constants.ELE_LOC_LONG,
+            Constants.ELE_LOC_SCALE, Constants.ELE_LINK_DESC, Constants.ELE_LINK_TITLE,
+            Constants.ELE_LINK_URL, Constants.ELE_EVT, Constants.ELE_QR_KEY,
+            Constants.ELE_QR_TICKET, Constants.ELE_LOCU_LAT, Constants.ELE_LOCU_LONG,
+            Constants.ELE_LOCU_PRECISION));
     private final Map<String, MessageTypeParser> MSG_TYPE2PARSER =
         Collections.unmodifiableMap(new HashMap<String, MessageTypeParser>() {
             {
@@ -138,14 +138,14 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
     @Override public void endElement(String uri, String localName, String qName)
         throws SAXException {
         tagName = null;
-        goCapture =false;
+        goCapture = false;
     }
 
     /**
      * <p>元素内部表示</p>
      *
      * @author ray
-     * @date 2015-08-15
+     * @version %I%, %G%
      * @since 1.0
      */
     class Element {
@@ -175,6 +175,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
 
         // voice
         public static final String ELE_VOICE_FORMAT = "format";
+        public static final String ELE_VOICE_RECOGNITION = "recognition";
 
         // video
         public static final String ELE_VIDEO_THUMB = "thumbmediaid";
@@ -306,6 +307,9 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                 case Constants.ELE_IMG_ID:
                     msg.setMediaID(e.value);
                     break;
+                case Constants.ELE_VOICE_RECOGNITION:
+                    msg.setTransTextFromVoice(e.value);
+                    break;
             }
 
         }
@@ -325,7 +329,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                     msg.setMediaID(e.value);
                     break;
                 case Constants.ELE_VIDEO_THUMB:
-                    msg.setToUserName(e.value);
+                    msg.setThumbMediaID(e.value);
                     break;
             }
         }
@@ -391,6 +395,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
 
 
     class EventMessageParser extends MessageTypeParser {
+        private static final String EVENT_KEY_PREFIX = "qrscene_";
 
         @Override public void initMessage(List<Element> elementList) {
             Element eventElement = CollectionUtils.find(elementList, new Predicate<Element>() {
@@ -404,7 +409,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
             }
 
             // check subscribe | qc
-            switch (eventElement.name) {
+            switch (eventElement.value.toLowerCase()) {
                 case "subscribe":
                     Element eventKey = CollectionUtils.find(elementList, new Predicate<Element>() {
                         @Override public boolean evaluate(Element object) {
@@ -417,13 +422,16 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                         message = new SubscribeMessage();
 
                         // set content
-                        ((SubscribeMessage) message)
-                            .setIsSubscribe(eventElement.value.toLowerCase().equals("subscribe"));
+                        ((SubscribeMessage) message).setIsSubscribe(true);
                     } else {
                         // qr
-                        message = new ScanQRSubscribeMessage();
+                        message = new ScanQRCodeMessage();
                     }
 
+                    break;
+                case "unsubscribe":
+                    message = new SubscribeMessage();
+                    ((SubscribeMessage) message).setIsSubscribe(false);
                     break;
                 case "scan":
                     message = new ScanQRSubscribeMessage();
@@ -438,11 +446,11 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
         }
 
         @Override public void parserElement(Element e) {
-            if (message instanceof ScanQRCodeMessage) {
-                parseScanQRElement(e);
-
-            } else if (message instanceof ScanQRSubscribeMessage) {
+            if (message instanceof ScanQRSubscribeMessage) {
                 parseScanQRSubElement(e);
+
+            } else if (message instanceof ScanQRCodeMessage) {
+                parseScanQRElement(e);
 
             } else if (message instanceof LocationUploadMessage) {
                 parseLocationUploadElement(e);
@@ -481,7 +489,15 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
             ScanQRCodeMessage msg = (ScanQRCodeMessage) message;
             switch (e.name) {
                 case Constants.ELE_QR_KEY:
-                    msg.setEventKey(e.value);
+                    // remove prefix qrscene_
+                    int prefixPos = e.value.indexOf(EVENT_KEY_PREFIX);
+                    if (-1 < prefixPos) {
+                        msg.setEventKey(e.value.substring(prefixPos + EVENT_KEY_PREFIX.length()));
+
+                    } else {
+                        msg.setEventKey(e.value);
+
+                    }
                     break;
                 case Constants.ELE_QR_TICKET:
                     msg.setTicket(e.value);
