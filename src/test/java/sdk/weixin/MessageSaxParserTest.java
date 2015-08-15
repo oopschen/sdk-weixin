@@ -335,4 +335,28 @@ public class MessageSaxParserTest {
         Assert.assertEquals(parsedMessage.getMenuKey(), "EVENTKEY");
     }
 
+    @Test public void encryptMessage() {
+        String message = "<xml>" + "<ToUserName><![CDATA[toUser]]></ToUserName>"
+            + "<Encrypt><![CDATA[msg_encrypt]]></Encrypt>" + "</xml>";
+
+        MessageParser messageParser = new MessageSaxParser();
+
+        Assert.assertTrue(messageParser.parse(new ByteArrayInputStream(message.getBytes())));
+
+        EncryptMessage parsedMessage = (EncryptMessage) messageParser.getMessage();
+        Assert.assertNotNull(parsedMessage);
+        Assert.assertEquals(parsedMessage.getToUserName(), "toUser");
+        Assert.assertNull(parsedMessage.getFromUserName());
+        Assert.assertNull(parsedMessage.getCreateTime());
+        Assert.assertEquals(parsedMessage.getEncryptMessage(), "msg_encrypt");
+    }
+
+    @Test public void abnormalMessage() {
+        String message = "<xml>";
+
+        MessageParser messageParser = new MessageSaxParser();
+
+        Assert.assertFalse(messageParser.parse(new ByteArrayInputStream(message.getBytes())));
+
+    }
 }

@@ -8,16 +8,9 @@ import java.io.InputStream;
  * <p>sax 方式的消息解析器</p>
  *
  * @author chenl
- * @date 2015.08.14
+ * @version %I%, %G%
  */
 public interface MessageParser {
-    /**
-     * <p>是否加密的消息</p>
-     *
-     * @return true | false
-     */
-    boolean isEncryptMessage();
-
     /**
      * <p>解析必须调用的函数</p>
      *

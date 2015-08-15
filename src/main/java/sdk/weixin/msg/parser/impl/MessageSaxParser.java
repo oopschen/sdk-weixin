@@ -39,7 +39,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
             Constants.ELE_LOC_SCALE, Constants.ELE_LINK_DESC, Constants.ELE_LINK_TITLE,
             Constants.ELE_LINK_URL, Constants.ELE_EVT, Constants.ELE_QR_KEY,
             Constants.ELE_QR_TICKET, Constants.ELE_LOCU_LAT, Constants.ELE_LOCU_LONG,
-            Constants.ELE_LOCU_PRECISION));
+            Constants.ELE_LOCU_PRECISION, Constants.ELE_ENCRYPT));
     private final Map<String, MessageTypeParser> MSG_TYPE2PARSER =
         Collections.unmodifiableMap(new HashMap<String, MessageTypeParser>() {
             {
@@ -55,23 +55,19 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
             }
         });
 
-    private boolean isEncrypt;
     private boolean isParseSuccess;
     private boolean goCapture;
     private String tagName;
     private String msgType;
     private BaseMessage message;
     private List<Element> elementList;
+    private MessageTypeParser encryptTypeParser;
 
     public MessageSaxParser() {
-        isEncrypt = false;
         isParseSuccess = true;
         goCapture = false;
         elementList = new LinkedList<>();
-    }
-
-    public boolean isEncryptMessage() {
-        return isEncrypt;
+        encryptTypeParser = new EncryptMessageParser();
     }
 
     public boolean parse(InputStream msg) {
@@ -90,8 +86,13 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
         }
 
         if (isParseSuccess) {
-            if (CollectionUtils.isEmpty(elementList) || StringUtils.isBlank(msgType)) {
+            if (CollectionUtils.isEmpty(elementList)) {
                 isParseSuccess = false;
+
+            } else if (StringUtils.isBlank(msgType)) {
+                // check encrypt message
+                message = encryptTypeParser.parse();
+
             } else {
                 MessageTypeParser messageTypeParser = MSG_TYPE2PARSER.get(msgType);
                 if (null == messageTypeParser) {
@@ -202,6 +203,9 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
         public static final String ELE_LOCU_LAT = "latitude";
         public static final String ELE_LOCU_LONG = "longitude";
         public static final String ELE_LOCU_PRECISION = "precision";
+
+        // encrypt
+        public static final String ELE_ENCRYPT = "encrypt";
 
     }
 
@@ -516,6 +520,22 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                     msg.setTicket(e.value);
                     break;
 
+            }
+        }
+    }
+
+
+    class EncryptMessageParser extends MessageTypeParser {
+        @Override public void initMessage(List<Element> elementList) {
+            message = new EncryptMessage();
+        }
+
+        @Override public void parserElement(Element e) {
+            EncryptMessage encryptMessage = (EncryptMessage) message;
+            switch (e.name) {
+                case Constants.ELE_ENCRYPT:
+                    encryptMessage.setEncryptMessage(e.value);
+                    break;
             }
         }
     }
