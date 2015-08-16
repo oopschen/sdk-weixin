@@ -1,7 +1,6 @@
 package sdk.weixin.req;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 请求基类
@@ -12,22 +11,13 @@ import java.util.Map;
  */
 public abstract class BaseRequest {
     protected RequestMethod method;
-    protected Map<String, Object> params;
     protected String requestURI;
 
     public BaseRequest() {
         method = RequestMethod.GET;
     }
 
-    public void addParam(String name, Object value) {
-        if (null == params) {
-            params = new LinkedHashMap<String, Object>();
-        }
-        params.put(name, value);
-
-    }
-
-    public RequestMethod getMethod() {
+    @JsonIgnore public RequestMethod getMethod() {
         return method;
     }
 
@@ -35,7 +25,7 @@ public abstract class BaseRequest {
         this.method = method;
     }
 
-    public String getRequestURI() {
+    @JsonIgnore public String getRequestURI() {
         return requestURI;
     }
 
@@ -43,7 +33,4 @@ public abstract class BaseRequest {
         this.requestURI = requestURI;
     }
 
-    public Map<String, Object> getParams() {
-        return params;
-    }
 }

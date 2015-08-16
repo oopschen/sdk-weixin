@@ -1,5 +1,6 @@
 package sdk.weixin;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +26,6 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -62,6 +62,8 @@ public class APIUtils {
         objectMapper = new ObjectMapper();
         objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         objectMapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+        objectMapper.configure(MapperFeature.AUTO_DETECT_FIELDS, false);
+        objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
     }
 
     /**
@@ -113,21 +115,18 @@ public class APIUtils {
                 break;
             case POST:
                 HttpPost req = new HttpPost(uri);
-                Map<String, Object> params = request.getParams();
-                if (null != params) {
-                    StringWriter outputParams = new StringWriter();
-                    try {
-                        objectMapper.writeValue(outputParams, params);
-                    } catch (IOException e) {
-                        LOGGER.error("serialize param", e);
-                    }
-
-                    String content = outputParams.toString();
-                    if (StringUtils.isNoneBlank(content)) {
-                        req.setEntity(new StringEntity(content, StandardCharsets.UTF_8));
-                    }
-
+                StringWriter outputParams = new StringWriter();
+                try {
+                    objectMapper.writeValue(outputParams, request);
+                } catch (IOException e) {
+                    LOGGER.error("serialize param", e);
                 }
+
+                String content = outputParams.toString();
+                if (StringUtils.isNoneBlank(content)) {
+                    req.setEntity(new StringEntity(content, StandardCharsets.UTF_8));
+                }
+
 
                 httpUriRequest = req;
                 break;

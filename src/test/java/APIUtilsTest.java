@@ -68,13 +68,32 @@ public class APIUtilsTest {
 
         // post
         mockServerClient.when(HttpRequest.request().withMethod("POST").withPath("/test.json")
-            .withBody("{\"a\":1,\"b\":4}")).respond(httpResponse);
+            .withBody("{\"a\":1,\"b\":\"4\"}")).respond(httpResponse);
         BaseRequest post = new BaseRequest() {
+            private Integer a;
+            private String b;
+
             {
                 setMethod(RequestMethod.POST);
                 setRequestURI(reqURI);
-                addParam("a", 1);
-                addParam("b", 4);
+                setA(1);
+                setB("4");
+            }
+
+            public Integer getA() {
+                return a;
+            }
+
+            public void setA(Integer a) {
+                this.a = a;
+            }
+
+            public String getB() {
+                return b;
+            }
+
+            public void setB(String b) {
+                this.b = b;
             }
         };
 
