@@ -1,10 +1,19 @@
+import org.apache.http.client.utils.URIBuilder;
+import org.mockserver.client.server.MockServerClient;
+import org.mockserver.integration.ClientAndProxy;
+import org.mockserver.integration.ClientAndServer;
+import org.mockserver.model.HttpRequest;
+import org.mockserver.model.HttpResponse;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import sdk.weixin.APIUtils;
 import sdk.weixin.Result;
 import sdk.weixin.req.BaseRequest;
 import sdk.weixin.req.RequestMethod;
+
+import java.net.URISyntaxException;
 
 /**
  * apiutils 单元测试
@@ -14,17 +23,41 @@ import sdk.weixin.req.RequestMethod;
  * @since 1.0
  */
 public class APIUtilsTest {
+    private static final Integer SERVER_PORT = 1200;
+    private static final Integer PROXY_PORT = 1201;
+    private static final String TEST_HOST = "127.0.0.1";
     private APIUtils apiUtils;
+    private ClientAndProxy proxy;
+    private ClientAndServer server;
 
-    @BeforeTest public void setUp() {
+
+    @BeforeMethod public void setUp() {
+        proxy = ClientAndProxy.startClientAndProxy(PROXY_PORT);
+        server = ClientAndServer.startClientAndServer(SERVER_PORT);
         apiUtils = APIUtils.getInstance(10);
     }
 
-    @Test public void request() {
+    @AfterMethod public void cleanUp() {
+        proxy.stop();
+        server.stop();
+    }
+
+    @Test public void request() throws URISyntaxException {
+        MockServerClient mockServerClient = new MockServerClient(TEST_HOST, SERVER_PORT);
+        HttpResponse httpResponse = HttpResponse.response().withStatusCode(200)
+            .withHeader("content-type", "application/json").withBody("{\"a\": 1}");
+        final String reqURI =
+            new URIBuilder().setScheme("http").setHost(TEST_HOST).setPort(SERVER_PORT)
+                .setPath("/test.json").build().toString();
+
+        // get
+        mockServerClient.when(HttpRequest.request().withMethod("GET").withPath("/test.json"))
+            .respond(httpResponse);
+
         BaseRequest get = new BaseRequest() {
             {
                 setMethod(RequestMethod.GET);
-                setRequestURI("http://localhost:13000/test.json");
+                setRequestURI(reqURI);
             }
         };
 
@@ -34,17 +67,20 @@ public class APIUtilsTest {
         Assert.assertEquals(a.getA(), new Integer(1));
 
         // post
+        mockServerClient.when(HttpRequest.request().withMethod("POST").withPath("/test.json")
+            .withBody("{\"a\":1,\"b\":4}")).respond(httpResponse);
         BaseRequest post = new BaseRequest() {
             {
                 setMethod(RequestMethod.POST);
-                setRequestURI("http://localhost:13000/test.json");
+                setRequestURI(reqURI);
                 addParam("a", 1);
                 addParam("b", 4);
             }
         };
 
         a = apiUtils.request(post, Result.class);
-        Assert.assertNull(a);
+        Assert.assertNotNull(a);
+        Assert.assertEquals(a.getA(), new Integer(1));
 
     }
 
