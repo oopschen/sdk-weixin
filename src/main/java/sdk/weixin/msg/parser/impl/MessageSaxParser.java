@@ -17,8 +17,11 @@ import sdk.weixin.msg.parser.SubscribeMessage;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -39,7 +42,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
             Constants.ELE_LOC_SCALE, Constants.ELE_LINK_DESC, Constants.ELE_LINK_TITLE,
             Constants.ELE_LINK_URL, Constants.ELE_EVT, Constants.ELE_QR_KEY,
             Constants.ELE_QR_TICKET, Constants.ELE_LOCU_LAT, Constants.ELE_LOCU_LONG,
-            Constants.ELE_LOCU_PRECISION, Constants.ELE_ENCRYPT));
+            Constants.ELE_LOCU_PRECISION, Constants.ELE_ENCRYPT, Constants.ELE_ENCRYPT_NONCE,
+            Constants.ELE_ENCRYPT_TS, Constants.ELE_ENCRYPT_SIGNATURE));
     private final Map<String, MessageTypeParser> MSG_TYPE2PARSER =
         Collections.unmodifiableMap(new HashMap<String, MessageTypeParser>() {
             {
@@ -109,6 +113,18 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
         return isParseSuccess;
     }
 
+    @Override public boolean parse(String message) {
+        return parse(message, null);
+    }
+
+    @Override public boolean parse(String message, Charset charset) {
+        if (StringUtils.isBlank(message)) {
+            return false;
+        }
+        Charset ct = null != charset ? charset : StandardCharsets.UTF_8;
+        return parse(new ByteArrayInputStream(message.getBytes(ct)));
+    }
+
     public BaseMessage getMessage() {
         return message;
     }
@@ -125,7 +141,10 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
             return;
         }
 
-        String value = String.valueOf(ch, start, length);
+        String value = StringUtils.trimToNull(String.valueOf(ch, start, length));
+        if (null == value) {
+            return;
+        }
         // deal with msgType
         if (tagName.equals(Constants.ELE_MSG_TYPE)) {
             msgType = value.toLowerCase();
@@ -206,6 +225,9 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
 
         // encrypt
         public static final String ELE_ENCRYPT = "encrypt";
+        public static final String ELE_ENCRYPT_SIGNATURE = "msgsignature";
+        public static final String ELE_ENCRYPT_TS = "timestamp";
+        public static final String ELE_ENCRYPT_NONCE = "nonce";
 
     }
 
@@ -535,6 +557,15 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
             switch (e.name) {
                 case Constants.ELE_ENCRYPT:
                     encryptMessage.setEncryptMessage(e.value);
+                    break;
+                case Constants.ELE_ENCRYPT_NONCE:
+                    encryptMessage.setNonce(e.value);
+                    break;
+                case Constants.ELE_ENCRYPT_SIGNATURE:
+                    encryptMessage.setSignature(e.value);
+                    break;
+                case Constants.ELE_ENCRYPT_TS:
+                    encryptMessage.setTimeStamp(e.value);
                     break;
             }
         }

@@ -8,6 +8,7 @@ import sdk.weixin.msg.parser.SubscribeMessage;
 import sdk.weixin.msg.parser.impl.MessageSaxParser;
 
 import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
@@ -349,6 +350,27 @@ public class MessageSaxParserTest {
         Assert.assertNull(parsedMessage.getFromUserName());
         Assert.assertNull(parsedMessage.getCreateTime());
         Assert.assertEquals(parsedMessage.getEncryptMessage(), "msg_encrypt");
+        Assert.assertNull(parsedMessage.getTimeStamp());
+        Assert.assertNull(parsedMessage.getSignature());
+        Assert.assertNull(parsedMessage.getNonce());
+
+        message = "<xml>\n" + "<ToUserName><![CDATA[toUser]]></ToUserName>" + "<Encrypt>\n"
+            + "<![CDATA[test]]> </Encrypt>\n" + "<MsgSignature>hello</MsgSignature>\n"
+            + "<TimeStamp>1411034505</TimeStamp>\n" + "<Nonce>1111</Nonce>\n" + "</xml>";
+
+        messageParser = new MessageSaxParser();
+
+        Assert.assertTrue(messageParser.parse(new ByteArrayInputStream(message.getBytes())));
+
+        parsedMessage = (EncryptMessage) messageParser.getMessage();
+        Assert.assertNotNull(parsedMessage);
+        Assert.assertEquals(parsedMessage.getToUserName(), "toUser");
+        Assert.assertNull(parsedMessage.getFromUserName());
+        Assert.assertNull(parsedMessage.getCreateTime());
+        Assert.assertEquals(parsedMessage.getEncryptMessage(), "test");
+        Assert.assertEquals(parsedMessage.getTimeStamp(), "1411034505");
+        Assert.assertEquals(parsedMessage.getSignature(), "hello");
+        Assert.assertEquals(parsedMessage.getNonce(), "1111");
     }
 
     @Test public void abnormalMessage() {
@@ -359,4 +381,39 @@ public class MessageSaxParserTest {
         Assert.assertFalse(messageParser.parse(new ByteArrayInputStream(message.getBytes())));
 
     }
+
+    @Test public void parseMethods() {
+        // string
+        String message = "<xml>\n" + "<ToUserName><![CDATA[toUser]]></ToUserName>\n"
+            + "<FromUserName><![CDATA[FromUser]]></FromUserName>\n"
+            + "<CreateTime>123456789</CreateTime>\n" + "<MsgType><![CDATA[event]]></MsgType>\n"
+            + "<Event><![CDATA[CLICK]]></Event>\n" + "<EventKey><![CDATA[EVENTKEY]]></EventKey>\n"
+            + "</xml>";
+
+        MessageParser messageParser = new MessageSaxParser();
+
+        Assert.assertTrue(messageParser.parse(message));
+
+        MenuMessage parsedMessage = (MenuMessage) messageParser.getMessage();
+        Assert.assertNotNull(parsedMessage);
+        Assert.assertEquals(parsedMessage.getToUserName(), "toUser");
+        Assert.assertEquals(parsedMessage.getFromUserName(), "FromUser");
+        Assert.assertEquals(parsedMessage.getCreateTime(), new Date(123456789));
+        Assert.assertEquals(parsedMessage.getMenuKey(), "EVENTKEY");
+
+        // gbk encoded
+        String gbkEncodedMsg = new String(message.getBytes(StandardCharsets.UTF_8));
+        messageParser = new MessageSaxParser();
+
+        Assert.assertTrue(messageParser.parse(gbkEncodedMsg));
+
+        parsedMessage = (MenuMessage) messageParser.getMessage();
+        Assert.assertNotNull(parsedMessage);
+        Assert.assertEquals(parsedMessage.getToUserName(), "toUser");
+        Assert.assertEquals(parsedMessage.getFromUserName(), "FromUser");
+        Assert.assertEquals(parsedMessage.getCreateTime(), new Date(123456789));
+        Assert.assertEquals(parsedMessage.getMenuKey(), "EVENTKEY");
+
+    }
+
 }

@@ -16,4 +16,5 @@ public abstract class PlainMessage extends BaseMessage {
     public void setMsgID(Long msgID) {
         this.msgID = msgID;
     }
+
 }
