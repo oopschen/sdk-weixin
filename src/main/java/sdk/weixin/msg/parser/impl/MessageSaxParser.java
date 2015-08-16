@@ -168,7 +168,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
      * @version %I%, %G%
      * @since 1.0
      */
-    class Element {
+    static class Element {
         private String name;
         private String value;
 
@@ -179,7 +179,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
     }
 
 
-    class Constants {
+    static class Constants {
         // tag names
         public static final String ELE_TO_USER_NAME = "tousername";
         public static final String ELE_FROM_USER_NAME = "fromusername";
@@ -250,7 +250,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                         break;
                     case Constants.ELE_CREATE_DATE:
                         try {
-                            message.setCreateTime(new Date(Long.valueOf(element.value)));
+                            message.setCreateTime(new Date(Long.parseLong(element.value)));
                         } catch (NumberFormatException e) {
                             LOGGER.error("format date: val={}", element.value);
                         }
@@ -259,7 +259,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                         break;
                     case Constants.ELE_MSG_ID:
                         try {
-                            ((PlainMessage) message).setMsgID(Long.valueOf(element.value));
+                            ((PlainMessage) message).setMsgID(Long.parseLong(element.value));
 
                         } catch (NumberFormatException e) {
                             LOGGER.error("format message id: val={}", element.value);
@@ -310,7 +310,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                 case Constants.ELE_IMG_URL:
                     msg.setPicURL(e.value);
                     break;
-
+                default:
+                    break;
 
             }
 
@@ -336,6 +337,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                 case Constants.ELE_VOICE_RECOGNITION:
                     msg.setTransTextFromVoice(e.value);
                     break;
+                default:
+                    break;
             }
 
         }
@@ -356,6 +359,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                     break;
                 case Constants.ELE_VIDEO_THUMB:
                     msg.setThumbMediaID(e.value);
+                    break;
+                default:
                     break;
             }
         }
@@ -391,6 +396,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                 case Constants.ELE_LOC_LONG:
                     msg.setLongitude(e.value);
                     break;
+                default:
+                    break;
             }
 
         }
@@ -414,6 +421,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                     break;
                 case Constants.ELE_LINK_TITLE:
                     msg.setTitle(e.value);
+                    break;
+                default:
                     break;
             }
         }
@@ -468,6 +477,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                 case "click":
                     message = new MenuMessage();
                     break;
+                default:
+                    break;
             }
         }
 
@@ -493,6 +504,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                 case Constants.ELE_QR_KEY:
                     msg.setMenuKey(e.value);
                     break;
+                default:
+                    break;
             }
         }
 
@@ -507,6 +520,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                     break;
                 case Constants.ELE_LOCU_PRECISION:
                     msg.setPrecision(e.value);
+                    break;
+                default:
                     break;
             }
         }
@@ -528,7 +543,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                 case Constants.ELE_QR_TICKET:
                     msg.setTicket(e.value);
                     break;
-
+                default:
+                    break;
             }
         }
 
@@ -540,6 +556,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                     break;
                 case Constants.ELE_QR_TICKET:
                     msg.setTicket(e.value);
+                    break;
+                default:
                     break;
 
             }
@@ -566,6 +584,8 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                     break;
                 case Constants.ELE_ENCRYPT_TS:
                     encryptMessage.setTimeStamp(e.value);
+                    break;
+                default:
                     break;
             }
         }

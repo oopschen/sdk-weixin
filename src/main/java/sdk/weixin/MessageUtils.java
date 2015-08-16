@@ -51,21 +51,27 @@ public class MessageUtils {
         String appID) {
         ReentrantReadWriteLock.ReadLock readLock = INS_LOCK.readLock();
         readLock.lock();
-        if (null != INS) {
+        try {
+            if (null != INS) {
+                return INS;
+            }
+        } finally {
             readLock.unlock();
-            return INS;
+
         }
 
-        readLock.unlock();
         ReentrantReadWriteLock.WriteLock writeLock = INS_LOCK.writeLock();
         writeLock.lock();
-        if (null != INS) {
-            writeLock.unlock();
+        try {
+            if (null != INS) {
+                return INS;
+            }
+            INS = new MessageUtils(token, encodingAesKey, appID);
             return INS;
+        } finally {
+            writeLock.unlock();
+
         }
-        INS = new MessageUtils(token, encodingAesKey, appID);
-        writeLock.unlock();
-        return INS;
     }
 
     /**

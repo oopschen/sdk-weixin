@@ -75,23 +75,28 @@ public class APIUtils {
     public static APIUtils getInstance(int maxCon) {
         ReentrantReadWriteLock.ReadLock readLock = INS_LOCK.readLock();
         readLock.lock();
-        if (null != INS) {
-            readLock.unlock();
-            return INS;
-        }
+        try {
+            if (null != INS) {
+                return INS;
+            }
 
-        readLock.unlock();
+        } finally {
+            readLock.unlock();
+        }
 
         ReentrantReadWriteLock.WriteLock writeLock = INS_LOCK.writeLock();
         writeLock.lock();
-        if (null != INS) {
-            writeLock.unlock();
-            return INS;
-        }
+        try {
+            if (null != INS) {
+                return INS;
+            }
 
-        INS = new APIUtils(maxCon);
-        writeLock.unlock();
-        return INS;
+            INS = new APIUtils(maxCon);
+            return INS;
+        } finally {
+            writeLock.unlock();
+
+        }
     }
 
 

@@ -48,11 +48,11 @@ public abstract class BaseMessage {
     }
 
     public Date getCreateTime() {
-        return createTime;
+        return null == createTime ? null : new Date(createTime.getTime());
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+        this.createTime = null == createTime ? null : new Date(createTime.getTime());
     }
 
     /**
@@ -132,7 +132,7 @@ public abstract class BaseMessage {
                 LOGGER.error("toXML", e);
             }
 
-            return null;
+            return StringUtils.EMPTY;
         }
         return super.toString();
     }
