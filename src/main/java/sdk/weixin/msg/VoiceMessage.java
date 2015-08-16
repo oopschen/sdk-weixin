@@ -1,5 +1,9 @@
 package sdk.weixin.msg;
 
+import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
  * <p>语音消息</p>
  *
@@ -10,6 +14,7 @@ package sdk.weixin.msg;
 public class VoiceMessage extends PlainMessage {
     private String format;
     private String mediaID;
+    private String transTextFromVoice;
 
     public String getTransTextFromVoice() {
         return transTextFromVoice;
@@ -18,8 +23,6 @@ public class VoiceMessage extends PlainMessage {
     public void setTransTextFromVoice(String transTextFromVoice) {
         this.transTextFromVoice = transTextFromVoice;
     }
-
-    private String transTextFromVoice;
 
     public String getFormat() {
         return format;
@@ -35,5 +38,30 @@ public class VoiceMessage extends PlainMessage {
 
     public void setMediaID(String mediaID) {
         this.mediaID = mediaID;
+    }
+
+    @Override protected Document toElements() {
+        Document document = super.toElements();
+        if (null == document) {
+            document = createDoc();
+        }
+
+        if (null == document) {
+            return null;
+        }
+
+        appendMsgType(document, "voice");
+
+        if (!StringUtils.isBlank(mediaID)) {
+            Element voice = document.createElement("Voice");
+
+            Element ele = document.createElement("MediaId");
+            ele.appendChild(document.createCDATASection(mediaID));
+
+            voice.appendChild(ele);
+            append2Root(document, voice);
+        }
+
+        return document;
     }
 }

@@ -1,5 +1,9 @@
 package sdk.weixin.msg;
 
+import org.apache.commons.lang3.StringUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
  * <p>图片消息</p>
  *
@@ -8,6 +12,7 @@ package sdk.weixin.msg;
  * @since 1.0
  */
 public class ImageMessage extends PlainMessage {
+    private String mediaID;
     private String picURL;
 
     public String getMediaID() {
@@ -18,7 +23,6 @@ public class ImageMessage extends PlainMessage {
         this.mediaID = mediaID;
     }
 
-    private String mediaID;
 
     public String getPicURL() {
         return picURL;
@@ -26,5 +30,26 @@ public class ImageMessage extends PlainMessage {
 
     public void setPicURL(String picURL) {
         this.picURL = picURL;
+    }
+
+    @Override protected Document toElements() {
+        Document document = super.toElements();
+        if (null == document) {
+            document = createDoc();
+        }
+
+        if (null == document) {
+            return null;
+        }
+
+        appendMsgType(document, "image");
+
+        if (!StringUtils.isBlank(mediaID)) {
+            Element ele = document.createElement("MediaId");
+            ele.appendChild(document.createCDATASection(mediaID));
+            append2Root(document, ele);
+        }
+
+        return document;
     }
 }
