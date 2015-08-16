@@ -23,15 +23,9 @@ public class MessageUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(MessageUtils.class);
     private static final ReentrantReadWriteLock INS_LOCK = new ReentrantReadWriteLock();
     private static MessageUtils INS;
-    private String token;
-    private String encodingAesKey;
-    private String appID;
     private WXBizMsgCrypt enDeCrypter;
 
     private MessageUtils(String token, String encodingAesKey, String appID) {
-        this.token = token;
-        this.encodingAesKey = encodingAesKey;
-        this.appID = appID;
         try {
             this.enDeCrypter = new WXBizMsgCrypt(token, encodingAesKey, appID);
         } catch (AesException e) {
