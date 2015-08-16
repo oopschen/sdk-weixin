@@ -3,25 +3,25 @@ package sdk.weixin.res.auth;
 import java.util.List;
 
 /**
- * authCode response
+ * auth account auth info
  *
  * @author ray
  * @version %I%, %G%
  * @since 1.0
  */
-public class AuthCodeResponse {
-    private AuthInfo authorization_info;
+public class AuthAccAuthInfo {
+    private String appid;
     private List<FuncCategory> func_info;
 
-    public AuthCodeResponse() {
+    public AuthAccAuthInfo() {
     }
 
-    public AuthInfo getAuthorization_info() {
-        return authorization_info;
+    public String getAppid() {
+        return appid;
     }
 
-    public void setAuthorization_info(AuthInfo authorization_info) {
-        this.authorization_info = authorization_info;
+    public void setAppid(String appid) {
+        this.appid = appid;
     }
 
     public List<FuncCategory> getFunc_info() {
