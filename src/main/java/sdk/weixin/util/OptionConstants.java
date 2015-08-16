@@ -1,4 +1,4 @@
-package sdk.weixin.res.auth.util;
+package sdk.weixin.util;
 
 /**
  * option contants
