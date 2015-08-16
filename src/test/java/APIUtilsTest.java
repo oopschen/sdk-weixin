@@ -82,6 +82,23 @@ public class APIUtilsTest {
         Assert.assertNotNull(a);
         Assert.assertEquals(a.getA(), new Integer(1));
 
+        // https
+        mockServerClient
+            .when(HttpRequest.request().withSecure(true).withMethod("GET").withPath("/test.json"))
+            .respond(httpResponse);
+
+        BaseRequest httpsGet = new BaseRequest() {
+            {
+                setMethod(RequestMethod.GET);
+                setRequestURI(
+                    new URIBuilder().setScheme("https").setHost(TEST_HOST).setPort(SERVER_PORT)
+                        .setPath("/test.json").build().toString());
+            }
+        };
+
+        a = apiUtils.request(httpsGet, Result.class);
+        Assert.assertNotNull(a);
+        Assert.assertEquals(a.getA(), new Integer(1));
     }
 
 

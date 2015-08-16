@@ -7,18 +7,24 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sdk.weixin.req.BaseRequest;
+import sdk.weixin.req.CustomizeTrustManager;
 import sdk.weixin.req.RequestMethod;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -38,10 +44,20 @@ public class APIUtils {
     private CloseableHttpClient httpClient;
 
     private APIUtils(int maxCon) {
-        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-        cm.setMaxTotal(maxCon);
-        cm.setDefaultMaxPerRoute(cm.getMaxTotal());
-        httpClient = HttpClients.custom().setConnectionManager(cm).build();
+        SSLContext sslContext = null;
+        try {
+            sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, new TrustManager[] {new CustomizeTrustManager()}, null);
+        } catch (NoSuchAlgorithmException e) {
+        } catch (KeyManagementException e) {
+        }
+
+        if (null != sslContext) {
+            SSLConnectionSocketFactory sslConnectionSocketFactory =
+                new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
+            httpClient = HttpClients.custom().setSSLSocketFactory(sslConnectionSocketFactory)
+                .setMaxConnTotal(maxCon).setMaxConnPerRoute(maxCon).build();
+        }
 
         objectMapper = new ObjectMapper();
         objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
