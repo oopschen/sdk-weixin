@@ -34,7 +34,7 @@ public class APIUtilsTest {
     @BeforeMethod public void setUp() {
         proxy = ClientAndProxy.startClientAndProxy(PROXY_PORT);
         server = ClientAndServer.startClientAndServer(SERVER_PORT);
-        apiUtils = APIUtils.getInstance(10);
+        apiUtils = APIUtils.getInstance(10, 10);
     }
 
     @AfterMethod public void cleanUp() {

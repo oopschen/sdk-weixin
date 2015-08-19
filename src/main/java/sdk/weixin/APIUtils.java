@@ -8,6 +8,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.config.SocketConfig;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.StringEntity;
@@ -43,7 +44,7 @@ public class APIUtils {
     private ObjectMapper objectMapper;
     private CloseableHttpClient httpClient;
 
-    private APIUtils(int maxCon) {
+    private APIUtils(int maxCon, int timeoutSec) {
         SSLContext sslContext = null;
         try {
             sslContext = SSLContext.getInstance("TLS");
@@ -53,10 +54,13 @@ public class APIUtils {
         }
 
         if (null != sslContext) {
+            SocketConfig socketConfig =
+                SocketConfig.custom().setSoKeepAlive(false).setSoTimeout(timeoutSec * 1000).build();
             SSLConnectionSocketFactory sslConnectionSocketFactory =
                 new SSLConnectionSocketFactory(sslContext, NoopHostnameVerifier.INSTANCE);
-            httpClient = HttpClients.custom().setSSLSocketFactory(sslConnectionSocketFactory)
-                .setMaxConnTotal(maxCon).setMaxConnPerRoute(maxCon).build();
+            httpClient = HttpClients.custom().setDefaultSocketConfig(socketConfig)
+                .setSSLSocketFactory(sslConnectionSocketFactory).setMaxConnTotal(maxCon)
+                .setMaxConnPerRoute(maxCon).build();
         }
 
         objectMapper = new ObjectMapper();
@@ -72,7 +76,7 @@ public class APIUtils {
      * @param maxCon 最大并发,最大host并发
      * @return 实例
      */
-    public static APIUtils getInstance(int maxCon) {
+    public static APIUtils getInstance(int maxCon, int timeoutSec) {
         ReentrantReadWriteLock.ReadLock readLock = INS_LOCK.readLock();
         readLock.lock();
         try {
@@ -91,7 +95,7 @@ public class APIUtils {
                 return INS;
             }
 
-            INS = new APIUtils(maxCon);
+            INS = new APIUtils(maxCon, timeoutSec);
             return INS;
         } finally {
             writeLock.unlock();
