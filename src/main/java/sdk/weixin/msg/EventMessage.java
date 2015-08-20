@@ -7,7 +7,7 @@ package sdk.weixin.msg;
  * @version %I%, %G%
  * @since 1.0
  */
-public abstract class EventMessage extends BaseMessage {
+public abstract class EventMessage extends BaseContentMessage {
     protected String event;
 
     public String getEvent() {

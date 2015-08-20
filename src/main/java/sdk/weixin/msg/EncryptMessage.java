@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
  * @version %I%, %G%
  * @since 1.0
  */
-public class EncryptMessage extends BaseMessage {
+public class EncryptMessage extends BaseContentMessage {
     private String encryptMessage;
     // 发送专用
     private String signature;
@@ -52,10 +52,6 @@ public class EncryptMessage extends BaseMessage {
 
     @Override protected Document toElements() {
         Document document = super.toElements();
-        if (null == document) {
-            document = createDoc();
-        }
-
         if (null == document) {
             return null;
         }

@@ -63,7 +63,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
     private boolean goCapture;
     private String tagName;
     private String msgType;
-    private BaseMessage message;
+    private BaseContentMessage message;
     private List<Element> elementList;
     private MessageTypeParser encryptTypeParser;
 
@@ -125,7 +125,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
         return parse(new ByteArrayInputStream(message.getBytes(ct)));
     }
 
-    public BaseMessage getMessage() {
+    public BaseContentMessage getMessage() {
         return message;
     }
 
@@ -233,7 +233,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
 
 
     abstract class MessageTypeParser {
-        public BaseMessage parse() {
+        public BaseContentMessage parse() {
             if (CollectionUtils.isEmpty(elementList)) {
                 return null;
             }

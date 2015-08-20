@@ -1,6 +1,5 @@
 package sdk.weixin.msg.parser;
 
-import sdk.weixin.msg.BaseMessage;
 import sdk.weixin.msg.EventMessage;
 
 /**

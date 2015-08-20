@@ -1,4 +1,4 @@
-package sdk.weixin.msg;
+package sdk.weixin.msg.parser;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -20,71 +20,26 @@ import java.io.StringWriter;
 import java.util.Date;
 
 /**
- * <p>消息基类</p>
+ * 消息基类
  *
- * @author chenl
- * @date 2015.08.14
+ * @author work
+ * @version %I%, %G%
+ * @since 1.0
  */
 public abstract class BaseMessage {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseMessage.class);
-    protected String toUserName;
-    protected String fromUserName;
+
     protected Date createTime;
-
-    public String getToUserName() {
-        return toUserName;
-    }
-
-    public void setToUserName(String toUserName) {
-        this.toUserName = toUserName;
-    }
-
-    public String getFromUserName() {
-        return fromUserName;
-    }
-
-    public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
-    }
+    protected Document document;
 
     public Date getCreateTime() {
-        return null == createTime ? null : new Date(createTime.getTime());
+        return createTime;
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = null == createTime ? null : new Date(createTime.getTime());
+        this.createTime = createTime;
     }
 
-    /**
-     * 实现实体转成xml
-     *
-     * @return dom 对象
-     */
-    protected Document toElements() {
-        Document document = createDoc();
-        if (null == document) {
-            return null;
-        }
-
-        if (!StringUtils.isBlank(toUserName)) {
-            Element ele = document.createElement("ToUserName");
-            ele.appendChild(document.createCDATASection(toUserName));
-            append2Root(document, ele);
-        }
-
-        if (!StringUtils.isBlank(fromUserName)) {
-            Element ele = document.createElement("FromUserName");
-            ele.appendChild(document.createCDATASection(fromUserName));
-            append2Root(document, ele);
-        }
-
-        if (null != createTime) {
-            Element ele = document.createElement("CreateTime");
-            ele.appendChild(document.createTextNode(String.valueOf(createTime.getTime())));
-            append2Root(document, ele);
-        }
-        return document;
-    }
 
     protected void append2Root(Document document, Element element) {
         Node root = document.getFirstChild();
@@ -116,6 +71,22 @@ public abstract class BaseMessage {
         return null;
     }
 
+    protected Document toElements() {
+        Document document = getDocument();
+        if (null == document) {
+            return null;
+        }
+
+        if (null != createTime) {
+            Element ele = document.createElement("CreateTime");
+            ele.appendChild(document.createTextNode(String.valueOf(createTime.getTime())));
+            append2Root(document, ele);
+        }
+
+        return document;
+
+    }
+
     @Override public String toString() {
         Document document = this.toElements();
         if (null != document) {
@@ -137,4 +108,10 @@ public abstract class BaseMessage {
         return super.toString();
     }
 
+    protected Document getDocument() {
+        if (null == document) {
+            document = createDoc();
+        }
+        return document;
+    }
 }

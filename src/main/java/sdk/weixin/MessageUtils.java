@@ -5,8 +5,9 @@ import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sdk.weixin.msg.BaseMessage;
+import sdk.weixin.msg.BaseContentMessage;
 import sdk.weixin.msg.EncryptMessage;
+import sdk.weixin.msg.parser.BaseMessage;
 import sdk.weixin.msg.parser.MessageParser;
 import sdk.weixin.msg.parser.impl.MessageSaxParser;
 
@@ -75,7 +76,7 @@ public class MessageUtils {
      * @param timeStamp 时间戳，可以自己生成，也可以用URL参数的timestamp
      * @param nonce     随机串，可以自己生成，也可以用URL参数的nonce
      */
-    public String encryptMessage(BaseMessage msg, String timeStamp, String nonce)
+    public String encryptMessage(BaseContentMessage msg, String timeStamp, String nonce)
         throws AesException {
         if (null == msg || StringUtils.isBlank(timeStamp) || StringUtils.isBlank(nonce)
             || null == enDeCrypter) {

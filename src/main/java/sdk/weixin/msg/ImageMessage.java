@@ -35,10 +35,6 @@ public class ImageMessage extends PlainMessage {
     @Override protected Document toElements() {
         Document document = super.toElements();
         if (null == document) {
-            document = createDoc();
-        }
-
-        if (null == document) {
             return null;
         }
 

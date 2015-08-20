@@ -1,6 +1,6 @@
 package sdk.weixin.msg.parser;
 
-import sdk.weixin.msg.BaseMessage;
+import sdk.weixin.msg.BaseContentMessage;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -44,5 +44,5 @@ public interface MessageParser {
      *
      * @return instance of message
      */
-    BaseMessage getMessage();
+    BaseContentMessage getMessage();
 }

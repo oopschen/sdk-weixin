@@ -6,7 +6,7 @@ package sdk.weixin.msg;
  * @author chenl
  * @date 2015.08.14
  */
-public abstract class PlainMessage extends BaseMessage {
+public abstract class PlainMessage extends BaseContentMessage {
     protected Long msgID;
 
     public Long getMsgID() {
