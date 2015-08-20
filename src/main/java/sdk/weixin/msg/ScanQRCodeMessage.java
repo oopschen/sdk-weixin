@@ -7,7 +7,7 @@ package sdk.weixin.msg;
  * @date 2015-08-15
  * @since 1.0
  */
-public class ScanQRCodeMessage extends BaseMessage {
+public class ScanQRCodeMessage extends EventMessage {
     private String eventKey;
     private String ticket;
 

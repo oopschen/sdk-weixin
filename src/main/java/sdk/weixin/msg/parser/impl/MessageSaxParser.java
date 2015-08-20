@@ -478,7 +478,12 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                     message = new MenuMessage();
                     break;
                 default:
+                    message = null;
                     break;
+            }
+
+            if (null != message) {
+                ((EventMessage) message).setEvent(eventElement.value);
             }
         }
 

@@ -7,7 +7,7 @@ package sdk.weixin.msg;
  * @date 2015-08-15
  * @since 1.0
  */
-public class MenuMessage extends BaseMessage {
+public class MenuMessage extends EventMessage {
     private String menuKey;
 
     public String getMenuKey() {

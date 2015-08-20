@@ -7,7 +7,7 @@ package sdk.weixin.msg;
  * @date 2015-08-15
  * @since 1.0
  */
-public class LocationUploadMessage extends BaseMessage {
+public class LocationUploadMessage extends EventMessage {
     private String latitude;
     private String longitude;
     private String precision;
