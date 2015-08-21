@@ -4,7 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import sdk.weixin.msg.*;
 import sdk.weixin.msg.parser.MessageParser;
-import sdk.weixin.msg.parser.SubscribeMessage;
+import sdk.weixin.msg.SubscribeMessage;
 import sdk.weixin.msg.parser.impl.MessageSaxParser;
 
 import java.io.ByteArrayInputStream;
