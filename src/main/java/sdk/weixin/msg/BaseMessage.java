@@ -33,11 +33,15 @@ public abstract class BaseMessage {
     protected Document document;
 
     public Date getCreateTime() {
-        return createTime;
+        return null == createTime ? null : new Date(createTime.getTime());
     }
 
     public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+        if (null == createTime) {
+            return;
+        }
+
+        this.createTime = new Date(createTime.getTime());
     }
 
 

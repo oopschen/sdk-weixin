@@ -1,7 +1,5 @@
 package sdk.weixin.msg;
 
-import sdk.weixin.msg.BaseInfoMessage;
-
 /**
  * component_verify_ticket
  *

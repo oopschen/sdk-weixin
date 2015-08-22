@@ -1,8 +1,6 @@
 package sdk.weixin.msg;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -13,7 +11,6 @@ import org.w3c.dom.Element;
  * @date 2015.08.14
  */
 public abstract class BaseContentMessage extends BaseMessage {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaseContentMessage.class);
     protected String toUserName;
     protected String fromUserName;
 

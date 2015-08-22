@@ -1,7 +1,5 @@
 package sdk.weixin.msg;
 
-import sdk.weixin.msg.EventMessage;
-
 /**
  * <p>关注或取消事件消息</p>
  *

@@ -50,8 +50,8 @@ public class APIUtils {
         try {
             sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, new TrustManager[] {new CustomizeTrustManager()}, null);
-        } catch (NoSuchAlgorithmException e) {
-        } catch (KeyManagementException e) {
+        } catch (NoSuchAlgorithmException | KeyManagementException e) {
+            LOGGER.error("init ssl", e);
         }
 
         if (null != sslContext) {

@@ -136,6 +136,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
 
             case Constants.ELE_ENCRYPT:
                 resolveParam.setIsEncrypt(true);
+                break;
 
             default:
                 break;
