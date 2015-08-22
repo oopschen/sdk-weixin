@@ -106,8 +106,16 @@ public class APIUtils {
     }
 
 
+    /**
+     * 请求接口, 若<strong>clz</strong>为空,则返回{@link CloseableHttpResponse}
+     *
+     * @param request 请求对象
+     * @param clz     返回的对象
+     * @param <T>     object泛型
+     * @return
+     */
     public <T extends Object> T request(BaseRequest request, Class<T> clz) {
-        if (null == request || null == clz) {
+        if (null == request) {
             return null;
         }
 
@@ -148,6 +156,10 @@ public class APIUtils {
         CloseableHttpResponse response = null;
         try {
             response = httpClient.execute(httpUriRequest);
+            if (null == clz) {
+                return (T) response;
+            }
+
             return objectMapper.readValue(response.getEntity().getContent(), clz);
         } catch (IOException e) {
             LOGGER.error("execute req", e);
