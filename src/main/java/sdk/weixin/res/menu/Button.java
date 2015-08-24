@@ -3,19 +3,19 @@ package sdk.weixin.res.menu;
 import java.util.List;
 
 /**
- * 菜单按钮实体
+ * 菜单按钮基类
  *
  * @author ray
  * @version %I%, %G%
  * @since 1.0
  */
-public class Button {
-    private List<Button> sub_button;
-    private String type;
-    private String name;
-    private String key;
-    private String url;
-    private String media_id;
+public abstract class Button {
+    protected List<Button> sub_button;
+    protected String type;
+    protected String name;
+    protected String key;
+    protected String url;
+    protected String media_id;
 
     public Button() {
     }
