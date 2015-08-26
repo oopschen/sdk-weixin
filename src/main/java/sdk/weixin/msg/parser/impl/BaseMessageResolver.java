@@ -11,7 +11,7 @@ import sdk.weixin.msg.parser.xml.Element;
 import java.util.Date;
 
 /**
- * 内容类的消息解析器
+ * 基础消息解析器
  *
  * @author work
  * @version %I%, %G%

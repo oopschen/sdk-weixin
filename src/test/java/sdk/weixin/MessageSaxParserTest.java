@@ -416,4 +416,49 @@ public class MessageSaxParserTest {
 
     }
 
+    @Test public void ticketMessage() {
+        // string
+        String message =
+            "<xml>\n" + "<AppId>abc</AppId>\n" + "<CreateTime>1413192605</CreateTime>\n"
+                + "<InfoType>component_verify_ticket</InfoType>\n"
+                + "<ComponentVerifyTicket>ticket</ComponentVerifyTicket>\n" + "</xml>";
+        MessageParser messageParser = new MessageSaxParser();
+
+        Assert.assertTrue(messageParser.parse(message));
+
+        ComponentVerificationTicketMessage parsedMessage =
+            (ComponentVerificationTicketMessage) messageParser.getMessage();
+        Assert.assertNotNull(parsedMessage);
+        Assert.assertEquals(parsedMessage.getAppID(), "abc");
+        Assert.assertEquals(parsedMessage.getComponentVerifyTicket(), "ticket");
+        Assert.assertEquals(parsedMessage.getCreateTime(), new Date(1413192605));
+    }
+
+    @Test public void authMessage() {
+        // string
+        String message =
+            "<xml>\n" + "<AppId>appID</AppId>\n" + "<CreateTime>1413192760</CreateTime>\n"
+                + "<InfoType>unauthorized</InfoType>\n"
+                + "<AuthorizerAppid>appIDF</AuthorizerAppid>\n" + "</xml>";
+        MessageParser messageParser = new MessageSaxParser();
+
+        Assert.assertTrue(messageParser.parse(message));
+
+        AuthMessage parsedMessage = (AuthMessage) messageParser.getMessage();
+        Assert.assertNotNull(parsedMessage);
+        Assert.assertEquals(parsedMessage.getAppID(), "appID");
+        Assert.assertEquals(parsedMessage.getActionAppID(), "appIDF");
+        Assert.assertEquals(parsedMessage.getCreateTime(), new Date(1413192760));
+
+        // none info type
+        message = "<xml>\n" + "<AppId>appID</AppId>\n" + "<CreateTime>1413192760</CreateTime>\n"
+            + "<InfoType>none</InfoType>\n" + "<AuthorizerAppid>appIDF</AuthorizerAppid>\n"
+            + "</xml>";
+
+        Assert.assertTrue(messageParser.parse(message));
+
+        DefaultMessage parsedMessage1 = (DefaultMessage) messageParser.getMessage();
+        Assert.assertNotNull(parsedMessage1);
+        Assert.assertNotNull(parsedMessage1.getMessage());
+    }
 }

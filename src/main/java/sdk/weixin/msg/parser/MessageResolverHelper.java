@@ -34,6 +34,7 @@ public abstract class MessageResolverHelper {
                 // event
                 put("event", new EventMessageResolver());
                 put("component_verify_ticket", new ComponentVerifyTicketMessageResolver());
+                put("unauthorized", new AuthMessageResolver());
             }
         });
 
@@ -56,6 +57,8 @@ public abstract class MessageResolverHelper {
             key = RESOLVER_DEF;
         }
 
-        return MSG_TYPE2PARSER.get(key);
+        return MSG_TYPE2PARSER.containsKey(key) ?
+            MSG_TYPE2PARSER.get(key) :
+            MSG_TYPE2PARSER.get(RESOLVER_DEF);
     }
 }

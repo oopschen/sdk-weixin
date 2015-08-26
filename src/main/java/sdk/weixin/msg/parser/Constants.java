@@ -62,7 +62,12 @@ public abstract class Constants {
     public static final String ELE_ENCRYPT_TS = "timestamp";
     public static final String ELE_ENCRYPT_NONCE = "nonce";
 
+    // info type message
+    public static final String ELE_INFO_MSG_APPID = "appid";
+
     // component
-    public static final String ELE_COMP_APPID = "appid";
     public static final String ELE_COMP_TICKET = "componentverifyticket";
+
+    // auth message
+    public static final String ELE_AUTH_FROM_APP_ID = "authorizerappid";
 }

@@ -8,13 +8,13 @@ package sdk.weixin.msg;
  * @since 1.0
  */
 public abstract class BaseInfoMessage extends BaseMessage {
-    protected String typ;
+    protected String appID;
 
-    public String getTyp() {
-        return typ;
+    public String getAppID() {
+        return appID;
     }
 
-    public void setTyp(String typ) {
-        this.typ = typ;
+    public void setAppID(String appID) {
+        this.appID = appID;
     }
 }

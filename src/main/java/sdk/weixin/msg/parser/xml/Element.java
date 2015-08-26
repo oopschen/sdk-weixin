@@ -8,8 +8,15 @@ package sdk.weixin.msg.parser.xml;
  * @since 1.0
  */
 public class Element {
+    private String rawName;
     private String name;
     private String value;
+
+    public Element(String rawName, String name, String value) {
+        this.rawName = rawName;
+        this.name = name;
+        this.value = value;
+    }
 
     public Element(String name, String value) {
         this.name = name;
@@ -30,5 +37,13 @@ public class Element {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getRawName() {
+        return rawName;
+    }
+
+    public void setRawName(String rawName) {
+        this.rawName = rawName;
     }
 }

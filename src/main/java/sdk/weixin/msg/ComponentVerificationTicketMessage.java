@@ -8,16 +8,7 @@ package sdk.weixin.msg;
  * @since 1.0
  */
 public class ComponentVerificationTicketMessage extends BaseInfoMessage {
-    private String appID;
     private String componentVerifyTicket;
-
-    public String getAppID() {
-        return appID;
-    }
-
-    public void setAppID(String appID) {
-        this.appID = appID;
-    }
 
     public String getComponentVerifyTicket() {
         return componentVerifyTicket;

@@ -46,12 +46,14 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
             Constants.ELE_QR_TICKET, Constants.ELE_LOCU_LAT, Constants.ELE_LOCU_LONG,
             Constants.ELE_LOCU_PRECISION, Constants.ELE_ENCRYPT, Constants.ELE_ENCRYPT_NONCE,
             Constants.ELE_ENCRYPT_TS, Constants.ELE_ENCRYPT_SIGNATURE, Constants.ELE_MSG_TYPE_INFO,
-            Constants.ELE_COMP_APPID, Constants.ELE_COMP_TICKET));
+            Constants.ELE_INFO_MSG_APPID, Constants.ELE_COMP_TICKET,
+            Constants.ELE_AUTH_FROM_APP_ID));
 
 
     private boolean goCapture;
     private ResolveParam resolveParam;
     private String tagName;
+    private String rawTagName;
     private BaseMessage message;
 
     public MessageSaxParser() {
@@ -111,6 +113,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
     public void startElement(String uri, String localName, String qName, Attributes attributes)
         throws SAXException {
         tagName = qName.toLowerCase();
+        rawTagName = qName;
         goCapture = CAPTURE_ELEMENT_NAMES_LOWER_CASE.contains(tagName);
     }
 
@@ -142,7 +145,7 @@ public class MessageSaxParser extends DefaultHandler implements MessageParser {
                 break;
         }
 
-        Element element = new Element(tagName, value);
+        Element element = new Element(rawTagName, tagName, value);
         resolveParam.getElementList().add(element);
     }
 
