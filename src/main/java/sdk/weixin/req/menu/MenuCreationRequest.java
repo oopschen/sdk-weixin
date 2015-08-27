@@ -11,6 +11,7 @@ import java.util.List;
  *
  * @author ray
  * @version %I%, %G%
+ * @see sdk.weixin.res.CommonResponse
  * @since 1.0
  */
 public class MenuCreationRequest extends BaseRequest {

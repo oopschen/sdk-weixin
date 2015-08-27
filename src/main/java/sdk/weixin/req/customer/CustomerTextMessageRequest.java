@@ -1,16 +1,16 @@
 package sdk.weixin.req.customer;
 
 /**
- * 客服消息接口
+ * 返送文本客服消息请求
  *
  * @author ray
  * @version %I%, %G%
  * @since 1.0
  */
-public class CustomerTextMessage extends CustomerBaseMessage {
+public class CustomerTextMessageRequest extends CustomerBaseMessage {
     private CustomerText text;
 
-    public CustomerTextMessage(String accessToken) {
+    public CustomerTextMessageRequest(String accessToken) {
         super(accessToken);
     }
 

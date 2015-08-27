@@ -5,37 +5,38 @@ package sdk.weixin.res.auth;
  *
  * @author ray
  * @version %I%, %G%
+ * @see sdk.weixin.req.auth.AuthAccInfoRequest
  * @since 1.0
  */
 public class AuthAccInfoResponse {
-    private AuthAccInfo authorizer_info;
-    private String qrcode_url;
-    private AuthAccAuthInfo authorization_info;
+    private AuthAccInfo authorizerInfo;
+    private String qrcodeUrl;
+    private AuthAccAuthInfo authorizationInfo;
 
     public AuthAccInfoResponse() {
     }
 
-    public AuthAccInfo getAuthorizer_info() {
-        return authorizer_info;
+    public AuthAccInfo getAuthorizerInfo() {
+        return authorizerInfo;
     }
 
-    public void setAuthorizer_info(AuthAccInfo authorizer_info) {
-        this.authorizer_info = authorizer_info;
+    public void setAuthorizerInfo(AuthAccInfo authorizerInfo) {
+        this.authorizerInfo = authorizerInfo;
     }
 
-    public String getQrcode_url() {
-        return qrcode_url;
+    public String getQrcodeUrl() {
+        return qrcodeUrl;
     }
 
-    public void setQrcode_url(String qrcode_url) {
-        this.qrcode_url = qrcode_url;
+    public void setQrcodeUrl(String qrcodeUrl) {
+        this.qrcodeUrl = qrcodeUrl;
     }
 
-    public AuthAccAuthInfo getAuthorization_info() {
-        return authorization_info;
+    public AuthAccAuthInfo getAuthorizationInfo() {
+        return authorizationInfo;
     }
 
-    public void setAuthorization_info(AuthAccAuthInfo authorization_info) {
-        this.authorization_info = authorization_info;
+    public void setAuthorizationInfo(AuthAccAuthInfo authorizationInfo) {
+        this.authorizationInfo = authorizationInfo;
     }
 }

@@ -7,28 +7,29 @@ import java.util.List;
  *
  * @author ray
  * @version %I%, %G%
+ * @see sdk.weixin.req.auth.AuthCodeRequest
  * @since 1.0
  */
 public class AuthCodeResponse {
-    private AuthInfo authorization_info;
-    private List<FuncCategory> func_info;
+    private AuthInfo authorizationInfo;
+    private List<FuncCategory> funcInfo;
 
     public AuthCodeResponse() {
     }
 
-    public AuthInfo getAuthorization_info() {
-        return authorization_info;
+    public AuthInfo getAuthorizationInfo() {
+        return authorizationInfo;
     }
 
-    public void setAuthorization_info(AuthInfo authorization_info) {
-        this.authorization_info = authorization_info;
+    public void setAuthorizationInfo(AuthInfo authorizationInfo) {
+        this.authorizationInfo = authorizationInfo;
     }
 
-    public List<FuncCategory> getFunc_info() {
-        return func_info;
+    public List<FuncCategory> getFuncInfo() {
+        return funcInfo;
     }
 
-    public void setFunc_info(List<FuncCategory> func_info) {
-        this.func_info = func_info;
+    public void setFuncInfo(List<FuncCategory> funcInfo) {
+        this.funcInfo = funcInfo;
     }
 }

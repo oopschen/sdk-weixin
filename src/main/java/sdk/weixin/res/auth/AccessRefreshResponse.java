@@ -5,37 +5,38 @@ package sdk.weixin.res.auth;
  *
  * @author ray
  * @version %I%, %G%
+ * @see sdk.weixin.req.auth.AccessRefreshRequest
  * @since 1.0
  */
 public class AccessRefreshResponse {
-    private String authorizer_access_token;
-    private String authorizer_refresh_token;
-    private Integer expires_in;
+    private String authorizerAccessToken;
+    private String authorizerTefreshToken;
+    private Integer expiresIn;
 
     public AccessRefreshResponse() {
     }
 
-    public String getAuthorizer_access_token() {
-        return authorizer_access_token;
+    public String getAuthorizerAccessToken() {
+        return authorizerAccessToken;
     }
 
-    public void setAuthorizer_access_token(String authorizer_access_token) {
-        this.authorizer_access_token = authorizer_access_token;
+    public void setAuthorizerAccessToken(String authorizerAccessToken) {
+        this.authorizerAccessToken = authorizerAccessToken;
     }
 
-    public String getAuthorizer_refresh_token() {
-        return authorizer_refresh_token;
+    public String getAuthorizerTefreshToken() {
+        return authorizerTefreshToken;
     }
 
-    public void setAuthorizer_refresh_token(String authorizer_refresh_token) {
-        this.authorizer_refresh_token = authorizer_refresh_token;
+    public void setAuthorizerTefreshToken(String authorizerTefreshToken) {
+        this.authorizerTefreshToken = authorizerTefreshToken;
     }
 
-    public Integer getExpires_in() {
-        return expires_in;
+    public Integer getExpiresIn() {
+        return expiresIn;
     }
 
-    public void setExpires_in(Integer expires_in) {
-        this.expires_in = expires_in;
+    public void setExpiresIn(Integer expiresIn) {
+        this.expiresIn = expiresIn;
     }
 }

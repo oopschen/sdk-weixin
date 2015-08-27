@@ -5,6 +5,7 @@ package sdk.weixin.res.menu;
  *
  * @author ray
  * @version %I%, %G%
+ * @see sdk.weixin.req.menu.MenuQueryRequest
  * @since 1.0
  */
 public class MenuQueryResponse {

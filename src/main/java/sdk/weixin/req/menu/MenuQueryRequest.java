@@ -7,6 +7,7 @@ import sdk.weixin.req.BaseRequest;
  *
  * @author ray
  * @version %I%, %G%
+ * @see sdk.weixin.res.menu.MenuQueryResponse
  * @since 1.0
  */
 public class MenuQueryRequest extends BaseRequest {

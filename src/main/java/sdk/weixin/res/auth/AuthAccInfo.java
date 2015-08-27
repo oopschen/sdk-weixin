@@ -8,38 +8,38 @@ package sdk.weixin.res.auth;
  * @since 1.0
  */
 public class AuthAccInfo {
-    private String nick_name;
-    private String head_img;
-    private String user_name;
+    private String nickName;
+    private String headImg;
+    private String userName;
     private String alias;
-    private VerifyTypeInfo verify_type_info;
-    private ServiceTypeInfo service_type_info;
+    private VerifyTypeInfo verifyTypeInfo;
+    private ServiceTypeInfo serviceTypeInfo;
 
     public AuthAccInfo() {
     }
 
-    public String getNick_name() {
-        return nick_name;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setNick_name(String nick_name) {
-        this.nick_name = nick_name;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public String getHead_img() {
-        return head_img;
+    public String getHeadImg() {
+        return headImg;
     }
 
-    public void setHead_img(String head_img) {
-        this.head_img = head_img;
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getAlias() {
@@ -50,19 +50,19 @@ public class AuthAccInfo {
         this.alias = alias;
     }
 
-    public VerifyTypeInfo getVerify_type_info() {
-        return verify_type_info;
+    public VerifyTypeInfo getVerifyTypeInfo() {
+        return verifyTypeInfo;
     }
 
-    public void setVerify_type_info(VerifyTypeInfo verify_type_info) {
-        this.verify_type_info = verify_type_info;
+    public void setVerifyTypeInfo(VerifyTypeInfo verifyTypeInfo) {
+        this.verifyTypeInfo = verifyTypeInfo;
     }
 
-    public ServiceTypeInfo getService_type_info() {
-        return service_type_info;
+    public ServiceTypeInfo getServiceTypeInfo() {
+        return serviceTypeInfo;
     }
 
-    public void setService_type_info(ServiceTypeInfo service_type_info) {
-        this.service_type_info = service_type_info;
+    public void setServiceTypeInfo(ServiceTypeInfo serviceTypeInfo) {
+        this.serviceTypeInfo = serviceTypeInfo;
     }
 }

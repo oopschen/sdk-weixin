@@ -8,7 +8,7 @@ package sdk.weixin.res;
  * @since 1.0
  */
 public class CommonResponse {
-    private Integer errcode;
+    protected Integer errcode;
     private String errmsg;
 
     public CommonResponse() {

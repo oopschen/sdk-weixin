@@ -10,22 +10,22 @@ import java.util.List;
  * @since 1.0
  */
 public abstract class Button {
-    protected List<Button> sub_button;
+    protected List<Button> subButton;
     protected String type;
     protected String name;
     protected String key;
     protected String url;
-    protected String media_id;
+    protected String mediaId;
 
     public Button() {
     }
 
-    public List<Button> getSub_button() {
-        return sub_button;
+    public List<Button> getSubButton() {
+        return subButton;
     }
 
-    public void setSub_button(List<Button> sub_button) {
-        this.sub_button = sub_button;
+    public void setSubButton(List<Button> subButton) {
+        this.subButton = subButton;
     }
 
     public String getType() {
@@ -60,11 +60,11 @@ public abstract class Button {
         this.url = url;
     }
 
-    public String getMedia_id() {
-        return media_id;
+    public String getMediaId() {
+        return mediaId;
     }
 
-    public void setMedia_id(String media_id) {
-        this.media_id = media_id;
+    public void setMediaId(String mediaId) {
+        this.mediaId = mediaId;
     }
 }

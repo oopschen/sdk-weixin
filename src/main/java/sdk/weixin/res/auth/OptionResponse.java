@@ -5,37 +5,38 @@ package sdk.weixin.res.auth;
  *
  * @author ray
  * @version %I%, %G%
+ * @see sdk.weixin.req.auth.OptionRequest
  * @since 1.0
  */
 public class OptionResponse {
-    private String authorizer_appid;
-    private String option_name;
-    private String option_value;
+    private String authorizerAppid;
+    private String optionName;
+    private String optionValue;
 
     public OptionResponse() {
     }
 
-    public String getAuthorizer_appid() {
-        return authorizer_appid;
+    public String getAuthorizerAppid() {
+        return authorizerAppid;
     }
 
-    public void setAuthorizer_appid(String authorizer_appid) {
-        this.authorizer_appid = authorizer_appid;
+    public void setAuthorizerAppid(String authorizerAppid) {
+        this.authorizerAppid = authorizerAppid;
     }
 
-    public String getOption_name() {
-        return option_name;
+    public String getOptionName() {
+        return optionName;
     }
 
-    public void setOption_name(String option_name) {
-        this.option_name = option_name;
+    public void setOptionName(String optionName) {
+        this.optionName = optionName;
     }
 
-    public String getOption_value() {
-        return option_value;
+    public String getOptionValue() {
+        return optionValue;
     }
 
-    public void setOption_value(String option_value) {
-        this.option_value = option_value;
+    public void setOptionValue(String optionValue) {
+        this.optionValue = optionValue;
     }
 }

@@ -9,25 +9,25 @@ package sdk.weixin.res.auth;
  * @since 1.0
  */
 public class PreAuthResponse {
-    private String pre_auth_code;
-    private Integer expires_in;
+    private String preAuthCode;
+    private Integer expiresIn;
 
     public PreAuthResponse() {
     }
 
-    public String getPre_auth_code() {
-        return pre_auth_code;
+    public String getPreAuthCode() {
+        return preAuthCode;
     }
 
-    public void setPre_auth_code(String pre_auth_code) {
-        this.pre_auth_code = pre_auth_code;
+    public void setPreAuthCode(String preAuthCode) {
+        this.preAuthCode = preAuthCode;
     }
 
-    public Integer getExpires_in() {
-        return expires_in;
+    public Integer getExpiresIn() {
+        return expiresIn;
     }
 
-    public void setExpires_in(Integer expires_in) {
-        this.expires_in = expires_in;
+    public void setExpiresIn(Integer expiresIn) {
+        this.expiresIn = expiresIn;
     }
 }

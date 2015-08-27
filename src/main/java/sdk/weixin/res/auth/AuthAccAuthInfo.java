@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class AuthAccAuthInfo {
     private String appid;
-    private List<FuncCategory> func_info;
+    private List<FuncCategory> funcInfo;
 
     public AuthAccAuthInfo() {
     }
@@ -24,11 +24,11 @@ public class AuthAccAuthInfo {
         this.appid = appid;
     }
 
-    public List<FuncCategory> getFunc_info() {
-        return func_info;
+    public List<FuncCategory> getFuncInfo() {
+        return funcInfo;
     }
 
-    public void setFunc_info(List<FuncCategory> func_info) {
-        this.func_info = func_info;
+    public void setFuncInfo(List<FuncCategory> funcInfo) {
+        this.funcInfo = funcInfo;
     }
 }

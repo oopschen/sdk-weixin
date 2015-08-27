@@ -6,6 +6,7 @@ package sdk.weixin.req.customer;
  * @author ray
  * @version %I%, %G%
  * @since 1.0
+ * @see CustomerTextMessageRequest
  */
 public class CustomerText {
     private String content;

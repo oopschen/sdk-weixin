@@ -2,18 +2,17 @@ package sdk.weixin.req.auth;
 
 import sdk.weixin.req.BaseRequest;
 import sdk.weixin.req.RequestMethod;
-import sdk.weixin.res.auth.PreAuthResponse;
 
 /**
  * 预授权请求
  *
  * @author ray
  * @version %I%, %G%
- * @see PreAuthResponse
+ * @see sdk.weixin.res.auth.PreAuthResponse
  * @since 1.0
  */
 public class PreAuthRequest extends BaseRequest {
-    private String component_appid;
+    private String componentAppid;
 
     public PreAuthRequest() {
 
@@ -27,12 +26,11 @@ public class PreAuthRequest extends BaseRequest {
                 + accessToken);
     }
 
-    public String getComponent_appid() {
-
-        return component_appid;
+    public String getComponentAppid() {
+        return componentAppid;
     }
 
-    public void setComponent_appid(String component_appid) {
-        this.component_appid = component_appid;
+    public void setComponentAppid(String componentAppid) {
+        this.componentAppid = componentAppid;
     }
 }

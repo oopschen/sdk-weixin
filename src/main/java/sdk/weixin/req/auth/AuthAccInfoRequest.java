@@ -8,11 +8,12 @@ import sdk.weixin.req.RequestMethod;
  *
  * @author ray
  * @version %I%, %G%
+ * @see sdk.weixin.res.auth.AuthAccInfoResponse
  * @since 1.0
  */
 public class AuthAccInfoRequest extends BaseRequest {
-    private String component_appid;
-    private String authorizer_appid;
+    private String componentAppid;
+    private String authorizerAppid;
 
     public AuthAccInfoRequest() {
     }
@@ -24,19 +25,19 @@ public class AuthAccInfoRequest extends BaseRequest {
                 + accessToken);
     }
 
-    public String getComponent_appid() {
-        return component_appid;
+    public String getComponentAppid() {
+        return componentAppid;
     }
 
-    public void setComponent_appid(String component_appid) {
-        this.component_appid = component_appid;
+    public void setComponentAppid(String componentAppid) {
+        this.componentAppid = componentAppid;
     }
 
-    public String getAuthorizer_appid() {
-        return authorizer_appid;
+    public String getAuthorizerAppid() {
+        return authorizerAppid;
     }
 
-    public void setAuthorizer_appid(String authorizer_appid) {
-        this.authorizer_appid = authorizer_appid;
+    public void setAuthorizerAppid(String authorizerAppid) {
+        this.authorizerAppid = authorizerAppid;
     }
 }

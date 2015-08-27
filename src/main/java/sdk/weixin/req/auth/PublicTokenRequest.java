@@ -7,6 +7,7 @@ import sdk.weixin.req.BaseFormRequest;
  *
  * @author work
  * @version %I%, %G%
+ * @see sdk.weixin.res.auth.PublicTokenResponse
  * @since 1.0
  */
 public class PublicTokenRequest extends BaseFormRequest {

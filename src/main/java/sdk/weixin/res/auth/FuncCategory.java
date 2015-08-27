@@ -8,16 +8,16 @@ package sdk.weixin.res.auth;
  * @since 1.0
  */
 public class FuncCategory {
-    private FuncInfo funcscope_category;
+    private FuncInfo funcscopeCategory;
 
     public FuncCategory() {
     }
 
-    public FuncInfo getFuncscope_category() {
-        return funcscope_category;
+    public FuncInfo getFuncscopeCategory() {
+        return funcscopeCategory;
     }
 
-    public void setFuncscope_category(FuncInfo funcscope_category) {
-        this.funcscope_category = funcscope_category;
+    public void setFuncscopeCategory(FuncInfo funcscopeCategory) {
+        this.funcscopeCategory = funcscopeCategory;
     }
 }
