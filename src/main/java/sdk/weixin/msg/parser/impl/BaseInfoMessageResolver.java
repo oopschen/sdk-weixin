@@ -2,7 +2,6 @@ package sdk.weixin.msg.parser.impl;
 
 import sdk.weixin.msg.BaseInfoMessage;
 import sdk.weixin.msg.parser.Constants;
-import sdk.weixin.msg.parser.ResolveParam;
 import sdk.weixin.msg.parser.xml.Element;
 
 /**

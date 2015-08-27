@@ -5,9 +5,6 @@ import sdk.weixin.msg.DefaultMessage;
 import sdk.weixin.msg.parser.ResolveParam;
 import sdk.weixin.msg.parser.xml.Element;
 
-import java.util.Collection;
-import java.util.List;
-
 /**
  * 默认的消息解析器
  *
