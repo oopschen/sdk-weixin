@@ -89,7 +89,8 @@ public class APIUtils {
     /**
      * 获取单例
      *
-     * @param maxCon 最大并发,最大host并发
+     * @param maxCon     最大并发,最大host并发
+     * @param timeoutSec 超时秒数
      * @return 实例
      */
     public static APIUtils getInstance(int maxCon, int timeoutSec) {
