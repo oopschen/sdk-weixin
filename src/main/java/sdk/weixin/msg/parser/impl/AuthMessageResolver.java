@@ -27,6 +27,7 @@ public class AuthMessageResolver extends BaseInfoMessageResolver {
         switch (element.getName()) {
             case Constants.ELE_AUTH_FROM_APP_ID:
                 msg.setActionAppID(element.getValue());
+                break;
             default:
                 break;
         }
