@@ -10,7 +10,7 @@ package sdk.weixin.res.auth;
  */
 public class AccessRefreshResponse {
     private String authorizerAccessToken;
-    private String authorizerTefreshToken;
+    private String authorizerrefreshToken;
     private Integer expiresIn;
 
     public AccessRefreshResponse() {
@@ -24,12 +24,12 @@ public class AccessRefreshResponse {
         this.authorizerAccessToken = authorizerAccessToken;
     }
 
-    public String getAuthorizerTefreshToken() {
-        return authorizerTefreshToken;
+    public String getAuthorizerrefreshToken() {
+        return authorizerrefreshToken;
     }
 
-    public void setAuthorizerTefreshToken(String authorizerTefreshToken) {
-        this.authorizerTefreshToken = authorizerTefreshToken;
+    public void setAuthorizerrefreshToken(String authorizerrefreshToken) {
+        this.authorizerrefreshToken = authorizerrefreshToken;
     }
 
     public Integer getExpiresIn() {
