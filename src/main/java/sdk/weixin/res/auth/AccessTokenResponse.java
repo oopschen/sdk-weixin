@@ -9,25 +9,25 @@ package sdk.weixin.res.auth;
  * @since 1.0
  */
 public class AccessTokenResponse {
-    private String component_access_token;
-    private Integer expires_in;
+    private String componentAccessToken;
+    private Integer expiresIn;
 
     public AccessTokenResponse() {
     }
 
-    public String getComponent_access_token() {
-        return component_access_token;
+    public String getComponentAccessToken() {
+        return componentAccessToken;
     }
 
-    public void setComponent_access_token(String component_access_token) {
-        this.component_access_token = component_access_token;
+    public void setComponentAccessToken(String componentAccessToken) {
+        this.componentAccessToken = componentAccessToken;
     }
 
-    public Integer getExpires_in() {
-        return expires_in;
+    public Integer getExpiresIn() {
+        return expiresIn;
     }
 
-    public void setExpires_in(Integer expires_in) {
-        this.expires_in = expires_in;
+    public void setExpiresIn(Integer expiresIn) {
+        this.expiresIn = expiresIn;
     }
 }

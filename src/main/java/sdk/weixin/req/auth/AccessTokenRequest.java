@@ -12,9 +12,9 @@ import sdk.weixin.req.RequestMethod;
  * @since 1.0
  */
 public class AccessTokenRequest extends BaseRequest {
-    private String component_appid;
-    private String component_appsecret;
-    private String component_verify_ticket;
+    private String componentAppid;
+    private String componentAppsecret;
+    private String componentVerifyTicket;
 
 
     public AccessTokenRequest() {
@@ -23,28 +23,27 @@ public class AccessTokenRequest extends BaseRequest {
         setRequestURI("https://api.weixin.qq.com/cgi-bin/component/api_component_token");
     }
 
-    public String getComponent_appid() {
-
-        return component_appid;
+    public String getComponentAppid() {
+        return componentAppid;
     }
 
-    public void setComponent_appid(String component_appid) {
-        this.component_appid = component_appid;
+    public void setComponentAppid(String componentAppid) {
+        this.componentAppid = componentAppid;
     }
 
-    public String getComponent_appsecret() {
-        return component_appsecret;
+    public String getComponentAppsecret() {
+        return componentAppsecret;
     }
 
-    public void setComponent_appsecret(String component_appsecret) {
-        this.component_appsecret = component_appsecret;
+    public void setComponentAppsecret(String componentAppsecret) {
+        this.componentAppsecret = componentAppsecret;
     }
 
-    public String getComponent_verify_ticket() {
-        return component_verify_ticket;
+    public String getComponentVerifyTicket() {
+        return componentVerifyTicket;
     }
 
-    public void setComponent_verify_ticket(String component_verify_ticket) {
-        this.component_verify_ticket = component_verify_ticket;
+    public void setComponentVerifyTicket(String componentVerifyTicket) {
+        this.componentVerifyTicket = componentVerifyTicket;
     }
 }

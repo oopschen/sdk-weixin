@@ -3,7 +3,7 @@ package sdk.weixin.req;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * 请求基类
+ * 请求基类, 会将类json化传给server
  *
  * @author ray
  * @version %I%, %G%
@@ -21,7 +21,7 @@ public abstract class BaseRequest {
         return method;
     }
 
-    public void setMethod(RequestMethod method) {
+    protected void setMethod(RequestMethod method) {
         this.method = method;
     }
 
@@ -29,7 +29,7 @@ public abstract class BaseRequest {
         return requestURI;
     }
 
-    public void setRequestURI(String requestURI) {
+    protected void setRequestURI(String requestURI) {
         this.requestURI = requestURI;
     }
 
