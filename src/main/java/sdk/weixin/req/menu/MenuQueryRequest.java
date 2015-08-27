@@ -11,10 +11,8 @@ import sdk.weixin.req.BaseRequest;
  * @since 1.0
  */
 public class MenuQueryRequest extends BaseRequest {
-    public MenuQueryRequest() {
-    }
-
     public MenuQueryRequest(String accessToken) {
+        super();
         setRequestURI("https://api.weixin.qq.com/cgi-bin/menu/get?access_token=" + accessToken);
     }
 
