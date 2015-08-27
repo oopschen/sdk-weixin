@@ -11,16 +11,19 @@ import sdk.weixin.req.BaseFormRequest;
  * @since 1.0
  */
 public class PublicTokenRequest extends BaseFormRequest {
-    private static final String GRANT_TYPE = "grant_type";
     private static final String APP_ID = "appid";
     private static final String APP_SECRET = "secret";
 
-    public String getGrant_type() {
-        return getParams().get(GRANT_TYPE);
+    public PublicTokenRequest() {
+        super();
+        addParam("grant_type", "client_credential");
     }
 
-    public void setGrant_type(String grant_type) {
-        addParam(GRANT_TYPE, grant_type);
+    public PublicTokenRequest(String appID, String secret) {
+        super();
+        addParam("grant_type", "client_credential");
+        addParam(APP_ID, appID);
+        addParam(APP_SECRET, secret);
     }
 
     public String getAppid() {
