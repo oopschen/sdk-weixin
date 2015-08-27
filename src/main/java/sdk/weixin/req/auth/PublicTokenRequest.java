@@ -23,7 +23,7 @@ public class PublicTokenRequest extends BaseFormRequest {
     public PublicTokenRequest(String appID, String secret) {
         this();
         setAppid(appID);
-        setSecret(appID);
+        setSecret(secret);
     }
 
     public String getAppid() {
