@@ -6,8 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sdk.weixin.msg.BaseContentMessage;
-import sdk.weixin.msg.EncryptMessage;
 import sdk.weixin.msg.BaseMessage;
+import sdk.weixin.msg.EncryptMessage;
 import sdk.weixin.msg.parser.MessageParser;
 import sdk.weixin.msg.parser.impl.MessageSaxParser;
 
