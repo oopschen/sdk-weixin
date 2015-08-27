@@ -16,14 +16,14 @@ public class PublicTokenRequest extends BaseFormRequest {
 
     public PublicTokenRequest() {
         super();
+        setRequestURI("https://api.weixin.qq.com/cgi-bin/token");
         addParam("grant_type", "client_credential");
     }
 
     public PublicTokenRequest(String appID, String secret) {
-        super();
-        addParam("grant_type", "client_credential");
-        addParam(APP_ID, appID);
-        addParam(APP_SECRET, secret);
+        this();
+        setAppid(appID);
+        setSecret(appID);
     }
 
     public String getAppid() {
