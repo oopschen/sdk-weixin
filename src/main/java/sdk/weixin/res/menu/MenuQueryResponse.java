@@ -1,5 +1,7 @@
 package sdk.weixin.res.menu;
 
+import sdk.weixin.res.CommonResponse;
+
 /**
  * menu response
  *
@@ -8,7 +10,7 @@ package sdk.weixin.res.menu;
  * @see sdk.weixin.req.menu.MenuQueryRequest
  * @since 1.0
  */
-public class MenuQueryResponse {
+public class MenuQueryResponse extends CommonResponse {
     private Menu menu;
 
     public MenuQueryResponse() {
