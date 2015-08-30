@@ -41,6 +41,10 @@ public class EncryptMessageResolver extends BaseContentMessageResolver {
                 encryptMessage.setTimeStamp(element.getValue());
                 return true;
 
+            case Constants.ELE_INFO_MSG_APPID:
+                encryptMessage.setFromUserName(element.getValue());
+                return true;
+
             default:
                 break;
         }
