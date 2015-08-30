@@ -14,10 +14,6 @@ import sdk.weixin.req.RequestMethod;
 public class PreAuthRequest extends BaseRequest {
     private String componentAppid;
 
-    public PreAuthRequest() {
-
-    }
-
     public PreAuthRequest(String accessToken) {
         super();
         setMethod(RequestMethod.POST);
