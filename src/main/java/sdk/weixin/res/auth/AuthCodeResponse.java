@@ -2,8 +2,6 @@ package sdk.weixin.res.auth;
 
 import sdk.weixin.res.CommonResponse;
 
-import java.util.List;
-
 /**
  * authCode response
  *
@@ -14,7 +12,6 @@ import java.util.List;
  */
 public class AuthCodeResponse extends CommonResponse {
     private AuthInfo authorizationInfo;
-    private List<FuncCategory> funcInfo;
 
     public AuthCodeResponse() {
     }
@@ -27,11 +24,4 @@ public class AuthCodeResponse extends CommonResponse {
         this.authorizationInfo = authorizationInfo;
     }
 
-    public List<FuncCategory> getFuncInfo() {
-        return funcInfo;
-    }
-
-    public void setFuncInfo(List<FuncCategory> funcInfo) {
-        this.funcInfo = funcInfo;
-    }
 }

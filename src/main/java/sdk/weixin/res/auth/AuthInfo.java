@@ -1,5 +1,7 @@
 package sdk.weixin.res.auth;
 
+import java.util.List;
+
 /**
  * auth info
  *
@@ -13,6 +15,7 @@ public class AuthInfo {
     private String authorizerAccessToken;
     private String authorizerRefreshToken;
     private Integer expiresIn;
+    private List<FuncCategory> funcInfo;
 
     public AuthInfo() {
     }
@@ -47,5 +50,13 @@ public class AuthInfo {
 
     public void setExpiresIn(Integer expiresIn) {
         this.expiresIn = expiresIn;
+    }
+
+    public List<FuncCategory> getFuncInfo() {
+        return funcInfo;
+    }
+
+    public void setFuncInfo(List<FuncCategory> funcInfo) {
+        this.funcInfo = funcInfo;
     }
 }
