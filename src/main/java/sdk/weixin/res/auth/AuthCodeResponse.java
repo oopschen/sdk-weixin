@@ -1,5 +1,7 @@
 package sdk.weixin.res.auth;
 
+import sdk.weixin.res.CommonResponse;
+
 import java.util.List;
 
 /**
@@ -10,7 +12,7 @@ import java.util.List;
  * @see sdk.weixin.req.auth.AuthCodeRequest
  * @since 1.0
  */
-public class AuthCodeResponse {
+public class AuthCodeResponse extends CommonResponse {
     private AuthInfo authorizationInfo;
     private List<FuncCategory> funcInfo;
 

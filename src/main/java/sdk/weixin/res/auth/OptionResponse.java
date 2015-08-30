@@ -1,5 +1,7 @@
 package sdk.weixin.res.auth;
 
+import sdk.weixin.res.CommonResponse;
+
 /**
  * option response
  *
@@ -8,7 +10,7 @@ package sdk.weixin.res.auth;
  * @see sdk.weixin.req.auth.OptionRequest
  * @since 1.0
  */
-public class OptionResponse {
+public class OptionResponse extends CommonResponse {
     private String authorizerAppid;
     private String optionName;
     private String optionValue;

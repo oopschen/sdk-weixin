@@ -1,5 +1,7 @@
 package sdk.weixin.res.auth;
 
+import sdk.weixin.res.CommonResponse;
+
 /**
  * accessRefresh response
  *
@@ -8,7 +10,7 @@ package sdk.weixin.res.auth;
  * @see sdk.weixin.req.auth.AccessRefreshRequest
  * @since 1.0
  */
-public class AccessRefreshResponse {
+public class AccessRefreshResponse extends CommonResponse {
     private String authorizerAccessToken;
     private String authorizerRefreshToken;
     private Integer expiresIn;

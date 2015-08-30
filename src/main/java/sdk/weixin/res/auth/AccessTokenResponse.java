@@ -1,5 +1,7 @@
 package sdk.weixin.res.auth;
 
+import sdk.weixin.res.CommonResponse;
+
 /**
  * accessToken response
  *
@@ -8,7 +10,7 @@ package sdk.weixin.res.auth;
  * @see sdk.weixin.req.auth.AccessTokenRequest
  * @since 1.0
  */
-public class AccessTokenResponse {
+public class AccessTokenResponse extends CommonResponse {
     private String componentAccessToken;
     private Integer expiresIn;
 
