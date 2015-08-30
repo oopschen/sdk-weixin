@@ -42,7 +42,7 @@ public class EncryptMessageResolver extends BaseContentMessageResolver {
                 return true;
 
             case Constants.ELE_INFO_MSG_APPID:
-                encryptMessage.setFromUserName(element.getValue());
+                encryptMessage.setToUserName(element.getValue());
                 return true;
 
             default:
