@@ -15,10 +15,8 @@ public class AuthAccInfoRequest extends BaseRequest {
     private String componentAppid;
     private String authorizerAppid;
 
-    public AuthAccInfoRequest() {
-    }
-
     public AuthAccInfoRequest(String accessToken) {
+        super();
         setMethod(RequestMethod.POST);
         setRequestURI(
             "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token="

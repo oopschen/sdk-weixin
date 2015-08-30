@@ -16,10 +16,8 @@ public class AccessRefreshRequest extends BaseRequest {
     private String authorizerAppid;
     private String authorizerRefreshToken;
 
-    public AccessRefreshRequest() {
-    }
-
     public AccessRefreshRequest(String accessToken) {
+        super();
         setMethod(RequestMethod.POST);
         setRequestURI(
             "https:// api.weixin.qq.com /cgi-bin/component/api_authorizer_token?component_access_token="

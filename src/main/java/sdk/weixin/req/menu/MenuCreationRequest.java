@@ -17,10 +17,8 @@ import java.util.List;
 public class MenuCreationRequest extends BaseRequest {
     private List<Button> button;
 
-    public MenuCreationRequest() {
-    }
-
     public MenuCreationRequest(String accessToken) {
+        super();
         setMethod(RequestMethod.POST);
         setRequestURI(" https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" + accessToken);
     }

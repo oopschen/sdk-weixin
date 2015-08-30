@@ -17,10 +17,8 @@ public class OptionSettingRequest extends BaseRequest {
     private String optionName;
     private String optionValue;
 
-    public OptionSettingRequest() {
-    }
-
     public OptionSettingRequest(String accessToken) {
+        super();
         setMethod(RequestMethod.POST);
         setRequestURI(
             "https://api.weixin.qq.com/cgi-bin/component/ api_set_authorizer_option?component_access_token="

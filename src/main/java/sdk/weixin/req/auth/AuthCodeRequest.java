@@ -15,9 +15,6 @@ public class AuthCodeRequest extends BaseRequest {
     private String componentAppid;
     private String authorizationCode;
 
-    public AuthCodeRequest() {
-    }
-
     public AuthCodeRequest(String accessToken) {
         setMethod(RequestMethod.POST);
         setRequestURI(
