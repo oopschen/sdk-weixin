@@ -99,6 +99,8 @@ public abstract class BaseMessage {
                 Transformer transformer = transformerFactory.newTransformer();
                 StringWriter stringWriter = new StringWriter();
                 transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
+                // clean document for next call
+                this.document = null;
                 return stringWriter.toString();
             } catch (TransformerConfigurationException e) {
                 LOGGER.error("toXML", e);
