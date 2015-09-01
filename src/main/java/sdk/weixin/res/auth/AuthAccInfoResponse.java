@@ -12,7 +12,6 @@ import sdk.weixin.res.CommonResponse;
  */
 public class AuthAccInfoResponse extends CommonResponse {
     private AuthAccInfo authorizerInfo;
-    private String qrcodeUrl;
     private AuthAccAuthInfo authorizationInfo;
 
     public AuthAccInfoResponse() {
@@ -24,14 +23,6 @@ public class AuthAccInfoResponse extends CommonResponse {
 
     public void setAuthorizerInfo(AuthAccInfo authorizerInfo) {
         this.authorizerInfo = authorizerInfo;
-    }
-
-    public String getQrcodeUrl() {
-        return qrcodeUrl;
-    }
-
-    public void setQrcodeUrl(String qrcodeUrl) {
-        this.qrcodeUrl = qrcodeUrl;
     }
 
     public AuthAccAuthInfo getAuthorizationInfo() {

@@ -12,6 +12,7 @@ public class AuthAccInfo {
     private String headImg;
     private String userName;
     private String alias;
+    private String qrcodeUrl;
     private VerifyTypeInfo verifyTypeInfo;
     private ServiceTypeInfo serviceTypeInfo;
 
@@ -64,5 +65,13 @@ public class AuthAccInfo {
 
     public void setServiceTypeInfo(ServiceTypeInfo serviceTypeInfo) {
         this.serviceTypeInfo = serviceTypeInfo;
+    }
+
+    public String getQrcodeUrl() {
+        return qrcodeUrl;
+    }
+
+    public void setQrcodeUrl(String qrcodeUrl) {
+        this.qrcodeUrl = qrcodeUrl;
     }
 }
